@@ -1,0 +1,21 @@
+type touchfw_update, domain;
+type touchfw_update_exec, exec_type, file_type;
+type touchfw_update_data_file, file_type, data_file_type;
+
+allow touchfw_update cgroup:dir { create write add_name };
+allow touchfw_update cache_file:file { open write create };
+allow touchfw_update cache_file:dir { add_name write };
+allow touchfw_update system_file:file rx_file_perms;
+allow touchfw_update shell_exec:file rx_file_perms;
+allow touchfw_update zygote_exec:file rx_file_perms;
+allow touchfw_update system_server_service:service_manager add;
+allow touchfw_update sysfs:file rw_file_perms;
+allow touchfw_update block_device:dir { open read write search rw_file_perms };
+allow touchfw_update block_device:blk_file rw_file_perms;
+allow touchfw_update device:chr_file { open read write ioctl create unlink };
+
+type_transition dhcp system_data_file:{ dir file } dhcp_data_file;
+allow touchfw_update touchfw_update_data_file:dir create_dir_perms;
+allow touchfw_update touchfw_update_data_file:file create_file_perms;
+
+allow touchfw_update system_file:file { entrypoint };

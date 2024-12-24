@@ -1,0 +1,166 @@
+// ============================================================================
+// 2016-01-05 Jabil, PSR for Linux BlueZ
+// ============================================================================
+
+// -----------------------------------------------------------------------------
+// Patch Bundle for CSR8811A08 0.5mm pitch, PB109 Rev.16
+// -----------------------------------------------------------------------------
+// explicit, PSKEY_RX_MR_SAMP_CONFIG (0x003c, 60), 1 words
+// patch_hardware_0, PSKEY_PATCH50 (0x212c, 8492), 16 words
+// patch_hardware_1, PSKEY_PATCH51 (0x212d, 8493), 25 words
+// patch_hardware_2, PSKEY_PATCH52 (0x212e, 8494), 38 words
+// patch_hardware_3, PSKEY_PATCH53 (0x212f, 8495), 26 words
+// patch_hardware_4, PSKEY_PATCH54 (0x2130, 8496), 24 words
+// patch_hardware_5, PSKEY_PATCH55 (0x2131, 8497), 25 words
+// patch_hardware_8, PSKEY_PATCH58 (0x2134, 8500), 19 words
+// patch_hardware_9, PSKEY_PATCH59 (0x2135, 8501), 22 words
+// patch_hardware_10, PSKEY_PATCH60 (0x2136, 8502), 20 words
+// patch_hardware_11, PSKEY_PATCH61 (0x2137, 8503), 9 words
+// patch_hardware_13, PSKEY_PATCH63 (0x2139, 8505), 27 words
+// patch_hardware_14, PSKEY_PATCH64 (0x213a, 8506), 37 words
+// patch_hardware_15, PSKEY_PATCH65 (0x213b, 8507), 31 words
+// patch_radiotest_tx_start, PSKEY_PATCH107 (0x21fb, 8699), 20 words
+// patch_lc_init_radio, PSKEY_PATCH112 (0x2200, 8704), 7 words
+&003c = 0426
+&212c = 0000 c47d 5714 0018 ff2b ff0e d800 7918 009e 0018 ff2b ff0e c500 8018 00e2 7080
+&212d = 0002 5b79 0014 e700 9525 011b 0626 089a 0af4 0218 ff2b ff0e 5b00 4318 009e 0014 011b 0826 0218 ff2b ff0e 5c00 8218 00e2 a63a
+&212e = 0002 d0a7 0316 0318 ff2b ff0e 2300 0618 009e e199 14f4 e119 0812 8000 00c0 10f0 061b 0212 0100 ffc0 0780 0af0 0316 0010 0318 ff2b ff0e 3800 1318 009e f70f 0218 ff2b ff0e d100 ac18 00e2 cf53
+&212f = 0003 c916 0114 0027 0517 2b00 a484 06f0 2b00 a914 0527 0114 02e0 0014 0127 0014 0227 0323 e315 0318 ff2b ff0e c900 1d18 00e2 cb5f
+&2130 = 0002 ca7a 0018 ff2b ff0e 8400 cb18 009e ea00 5f11 0100 0080 0524 0100 00b0 ea00 5f21 0218 ff2b ff0e ca00 7d18 00e2 2513
+&2131 = 0003 fe75 eb00 c114 0218 ff2b ff0e 6700 e718 009e ea00 6714 0218 ff2b ff0e 6700 e718 009e 0318 ff2b ff0e fe00 7a18 00e2 0c6f
+&2134 = 0001 1a6f 051b 0116 0284 03f0 0310 0122 0110 071b 0100 8922 0118 ff2b ff0e 1a00 7318 00e2 d58c
+&2135 = 0001 14d1 ff40 0627 0523 091b 0116 0284 07f0 0310 0122 5f16 4800 00b4 5f26 0118 ff2b ff0e 1500 d418 00e2 f7fe
+&2136 = 0003 f9a5 0318 ff2b ff0e f900 f018 009e e199 04f4 4000 ff14 f90f 0318 ff2b ff0e f900 7318 00e2 aec3
+&2137 = 0001 e8f2 0118 ff2b ff0e e900 f618 00e2 5830
+&2139 = 0001 8d02 0018 ff2b ff0e d600 cc18 009e 0118 ff2b ff0e 7900 3118 009e e199 09f4 e100 b219 0316 fe27 0216 ff27 ff0e fe9f 0114 f80f d06f
+&213a = 0000 d5ae 0118 ff2b ff0e 6a00 e418 009e e199 15f4 0513 7700 b580 02f4 0534 e119 0016 0434 f825 0116 08a0 f835 021b 0126 0018 ff2b ff0e d600 bf18 00e2 0018 ff2b ff0e d600 bc18 00e2 c32a
+&213b = 0001 8cae 0af0 e100 a315 0118 ff2b ff0e 6900 a518 009e f80f 049b 0bf0 e100 a114 e500 ed10 0018 ff2b ff0e d600 8c18 009e 0118 ff2b ff0e 8d00 cc18 00e2 dfa7
+&21fb = f000 3215 0800 00b4 f000 3225 f000 3215 f800 ffc4 f000 3225 f000 3215 0800 00b4 f000 3225 00e2 49e0
+&2200 = f100 cf15 01b4 f100 cf25 00e2 9dd1
+
+
+
+// -----------------------------------------------------------------------------
+// UART & Protocol Configuration
+// -----------------------------------------------------------------------------
+// PSKEY_HOST_INTERFACE, BCSP
+// PSKEY_UART_CONFIG_BCSP, default = 0x0806, enable HW flow ctrl = 0x082e
+// PSKEY_HOST_INTERFACE, H4
+// PSKEY_UART_CONFIG_H4, default = 0x08a8
+// PSKEY_UART_BITRATE: 2764800(2a3000), 1843200(1c2000), 1382400(151800), 921600(e1000), 460800(70800), 230400(38400), 115200(1c200)
+&01f9 = 0001
+//&01bf = 082e
+//&01f9 = 0003
+//&01c0 = 08a8
+&01ea = 0001 c200
+
+
+
+// -----------------------------------------------------------------------------
+// PSKEY_LOCAL_SUPPORTED_FEATURES
+// -----------------------------------------------------------------------------
+// PSKEY_LOCAL_SUPPORTED_FEATURES : Default
+&00ef = ffff fe8f ffdb 875b
+
+
+// -----------------------------------------------------------------------------
+// PSKEY_BDADDR (Bluetooth Device Address)
+// -----------------------------------------------------------------------------
+// PSKEY_BDADDR
+//&0001 = 0000 a8a8 005b 0002
+
+
+// -----------------------------------------------------------------------------
+// Main Clock and Slow Clock Configuration
+// -----------------------------------------------------------------------------
+// PSKEY_ANA_FREQ, 26000
+&01fe = 6590
+
+
+// // For Crystal configuration
+// PSKEY_ANA_FTRIM, for crystal frequency trim (value: 00~3f)
+// PSKEY_LP_XTAL_LVL, for crystal amplitude tuning (value: 00~0f)
+&01f6 = 0028
+&2578 = 0008
+
+
+// // Enable external slow clock input
+// PSKEY_DEEP_SLEEP_USE_EXTERNAL_CLOCK, True
+// PSKEY_DEEP_SLEEP_EXTERNAL_CLOCK_SOURCE, 3 = Slow clock input via a PIO
+// PSKEY_DEEP_SLEEP_EXTERNAL_CLOCK_SOURCE_PIO, PIO[0]
+// PSKEY_SLEEP_STATE, 0: Never, 1: default (DEEP_SLEEP_ALWAYS)
+//&03c3 = 0000
+//&21e4 = 0003
+//&2579 = 0000
+//&0229 = 0000
+
+
+// -----------------------------------------------------------------------------
+// Class 1 Output Power Configuration
+// -----------------------------------------------------------------------------
+// PSKEY_LC_MAX_TX_POWER
+// PSKEY_LC_DEFAULT_TX_POWER
+// LC_MAX_TX_POWER_NO_RSSI
+// PSKEY_BT_MIXER_CTRIM_CHAN0_MAX
+// PSKEY_BT_TX_MIXER_CTRIM_OFFSET
+// PSKEY_BLE_DEFAULT_TX_POWER
+//&0017 = 0000
+//&0021 = 0000
+//&002d = 0000
+//&216d = 0007
+//&2175 = 0000 0000 0000 eeee cccc
+//&22c8 = 0000
+
+
+
+// -----------------------------------------------------------------------------
+// PCM Configuration
+// -----------------------------------------------------------------------------
+// PSKEY_PCM_CONFIG32, configure to: slave mode, 16bits format
+// PSKEY_PCM_FORMAT, HCI_Write_Voice_Setting :: Linear_PCM_Bit_Pos: 0
+//&01b3 = 0800 0002
+//&01b6 = 0060
+
+
+// -----------------------------------------------------------------------------
+// Co-ex Configuration
+// -----------------------------------------------------------------------------
+// Configure co-existence (Unity 3, PTA)
+// PSKEY_COEX_SCHEME(0x2480), 3 = Unity 3
+// PSKEY_COEX_PIO_UNITY_3_BT_ACTIVE(0x2483), PIO[1], active high
+// PSKEY_COEX_PIO_UNITY_3_BT_STATUS(0x2484), PIO[4], active high
+// PSKEY_COEX_PIO_UNITY_3_WLAN_DENY(0x2485), PIO[9], active high
+//&2480 = 0005
+//&2483 = 0001 0001
+//&2484 = 0004 0001
+//&2485 = 0009 0001
+
+
+// -----------------------------------------------------------------------------
+// Clock Request
+// -----------------------------------------------------------------------------
+// PSKEY_CLOCK_REQUEST_ENABLE(0x0246), 0 = disable, 3 = PIO[2]OUT&PIO[3]OR (default)
+// PSKEY_CLOCK_REQUEST_FEATURES(0x03B6), 0 = active high(default), 1 = active low.
+//&0246 = 0000
+//&03b6 = 0000
+
+
+// -----------------------------------------------------------------------------
+// Wake Host up by PIO
+// -----------------------------------------------------------------------------
+// PSKEY_UART_HOST_WAKE_SIGNAL, PIO[3], positive pulse
+// 0x00ab, a=PIO number, b=1:positive pulse, 2:negative pulse
+// PSKEY_UART_HOST_WAKE,
+// 1st word(Enable): 1: Enable, 4: Disable(default)
+// 2nd word(Sleep Delay): Time after tx to host or rx from host(1-65535ms), 1000ms
+// 3rd word(Break_Length): Duration of Wake Signal(1-1000ms), 10ms
+// 4th word(Pause_Length): Time between end of wake signal and sending data to the host(0-1000ms), 200ms
+//&01ca = 0031
+//&01c7 = 0001 03e8 000a 0080
+
+
+// -----------------------------------------------------------------------------
+// Wake BlueCore up by PIO
+// -----------------------------------------------------------------------------
+// PSKEY_DEEP_SLEEP_PIO_WAKE
+//&0255 = 0001

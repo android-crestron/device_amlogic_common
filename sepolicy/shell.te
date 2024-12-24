@@ -1,0 +1,2 @@
+allow shell mtd_device:dir search;
+allow shell mtd_device:chr_file rw_file_perms;
